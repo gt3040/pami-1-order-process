@@ -78,17 +78,21 @@ def process_file(sheet_url):
     return temp_file.name, f"filled_sheet_{today}.xlsx"
 
 
-# ✅ 다운로드 버튼 1개 → 클릭 즉시 변환 + 다운로드
-file_path, file_name = process_file(sheet_url)
-with open(file_path, "rb") as f:
+if st.button("⬇️ 최신 데이터 변환 & 다운로드"):
+    with st.spinner("🔄 최신 데이터 가져오는 중..."):
+        df = load_sheet_csv(sheet_url)
+        df_missing = df[df.iloc[:, 0].isna() | (df.iloc[:, 0] == "")]
+        excel_binary, excel_name = convert_to_excel(df_missing)
+
+    st.success("✅ 변환 완료! 다운로드 버튼을 눌러 저장하세요")
     st.download_button(
-        label="📥 주문서 파일 다운로드",
-        data=f,
-        file_name=file_name,
+        label="⬇️ 엑셀 파일 다운로드",
+        data=excel_binary,
+        file_name=excel_name,
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 
-st.success("다운로드 저장 후 전송하세요!")
+
 
 
 
