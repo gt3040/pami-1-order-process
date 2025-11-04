@@ -7,7 +7,7 @@ from openpyxl.utils import get_column_letter
 import tempfile
 import re
 
-st.title("📌 파미-1 주문서 생성기")
+st.title("파미-1 주문서 생성기")
 
 # ✅ URL은 secrets.toml 또는 Streamlit Cloud Secrets에서 불러옴
 sheet_url = st.secrets["GOOGLE_SHEET_URL"]
@@ -89,5 +89,6 @@ with open(file_path, "rb") as f:
     )
 
 st.success("✅ 다운로드 버튼을 눌러 저장 후 전송!")
+
 
 
