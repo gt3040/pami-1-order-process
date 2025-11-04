@@ -106,7 +106,19 @@ if st.button("📥 최신 데이터 반영하기"):
     st.success(f"✅ 변환 완료!  ({row_count}개의 주문이 처리됨)")
     st.info(f"📌 최신 데이터 반영 시각: {now}")
 
-    st.subheader("✅ 주문 데이터 미리보기")
+    # st.subheader("✅ 주문 데이터 미리보기") // 크기조절 불가
+    st.markdown("""
+    # <style>
+    # .small-title {
+    #     font-size: 32px;
+    #     font-weight: 700;
+    #     text-align: center;
+    #     color: #333;
+    # }
+    # </style>
+    <div class="small-title">✅ 주문 데이터 미리보기<br></div>
+""", unsafe_allow_html=True)
+    
     st.dataframe(preview_df, use_container_width=True)
 
     with open(file_path, "rb") as f:
@@ -119,6 +131,7 @@ if st.button("📥 최신 데이터 반영하기"):
 
 else:
     st.warning("👉 위 버튼을 눌러 최신 데이터 반영 후 주문서 생성")
+
 
 
 
