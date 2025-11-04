@@ -109,7 +109,7 @@ with col2:
         st.info(f"최신 데이터 반영 시각: {now}")
     
         # st.subheader("주문 데이터 미리보기")
-        st.markdown("<p style='font-size:18px; font-weight:600;'> { 주문 데이터 미리보기 }</p>", unsafe_allow_html=True)
+        st.markdown("<p style='font-size:18px; font-weight:600; text-align: center;'> { 주문 데이터 미리보기 }</p>", unsafe_allow_html=True)
         preview_df.index = range(1, len(preview_df) + 1)
         st.dataframe(preview_df, use_container_width=True)
     
@@ -123,6 +123,7 @@ with col2:
     
     else:
         st.warning("👉 위 버튼을 눌러 최신 데이터 반영 후 주문서 생성")
+
 
 
 
