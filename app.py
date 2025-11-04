@@ -104,9 +104,9 @@ with col2:
         with st.spinner("🔄 최신 데이터 불러오는 중..."):
             file_path, file_name, row_count, preview_df = process_file(sheet_url)
     
-        now = datetime.now(ZoneInfo("Asia/Seoul")).strftime("%Y-%m-%d %H:%M:%S KST")
-        st.success(f"완료됨... [ {row_count}개의 주문이 처리됨 ]")
-        st.info(f"적용시간: {now}")
+        now = datetime.now(ZoneInfo("Asia/Seoul")).strftime("%Y-%m-%d %H:%M:%S (KST)")
+        st.success(f"완료됨 [ {row_count}개의 주문이 처리됨 ]")
+        st.info(f"적용시간 : {now}")
     
         # st.subheader("주문 데이터 미리보기")
         st.markdown("<p style='font-size:22px; font-weight:600; text-align: center;'> { 주문 데이터 요약 }</p>", unsafe_allow_html=True)
@@ -123,6 +123,7 @@ with col2:
     
     else:
         st.warning("👉 위 버튼을 눌러 최신 데이터를 적용하고 주문서를 생성하세요!")
+
 
 
 
