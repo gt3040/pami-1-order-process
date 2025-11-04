@@ -87,7 +87,7 @@ if st.button("📥 최신 데이터 불러와서 변환하기"):
         file_path, file_name, row_count = process_file(sheet_url)
 
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    st.success(f"✅ 변환 완료!  ({row_count}개의 행 처리됨)")
+    st.success(f"✅ 변환 완료!  ({row_count}개의 주문이 처리됨)")
     st.info(f"📌 최신 데이터 갱신 시각: {now}")
 
     with open(file_path, "rb") as f:
@@ -100,3 +100,4 @@ if st.button("📥 최신 데이터 불러와서 변환하기"):
 
 else:
     st.warning("👉 변환하려면 위 버튼을 먼저 클릭하세요.")
+
