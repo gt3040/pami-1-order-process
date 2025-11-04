@@ -94,7 +94,7 @@ def process_file(sheet_url):
 
     wb.save(temp_file.name)
 
-    return temp_file.name, f"order_sheet_{today}.xlsx", len(data_rows)
+    return temp_file.name, f"order_sheet_{today}.xlsx", len(data_rows), preview_df
 
    
 # ✅ 실행 버튼 → 클릭 시 최신 데이터 불러오기
@@ -119,6 +119,7 @@ if st.button("📥 최신 데이터 반영하기"):
 
 else:
     st.warning("👉 위 버튼을 눌러 최신 데이터 반영 후 주문서 생성")
+
 
 
 
