@@ -12,7 +12,7 @@ st.title("파미-1 주문서")
 # ✅ URL은 secrets.toml 또는 Streamlit Cloud Secrets에서 불러옴
 sheet_url = st.secrets["GOOGLE_SHEET_URL"]
 
-@st.cache_data(show_spinner=True)
+# @st.cache_data(show_spinner=True) // 캐싱하지 않음
 def process_file(sheet_url):
     df = pd.read_csv(sheet_url, header=None)
 
@@ -89,5 +89,6 @@ with open(file_path, "rb") as f:
     )
 
 st.success("다운로드 저장 후 전송하세요!")
+
 
 
