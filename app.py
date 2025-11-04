@@ -18,7 +18,7 @@ st.markdown("""
         color: #333;
     }
     </style>
-    <div class="small-title">파미-1 물류 주문서</div>
+    <div class="small-title">파미-1 물류 주문서<br><br><br></div>
 """, unsafe_allow_html=True)
 
 
@@ -112,6 +112,7 @@ if st.button("📥 최신 데이터 반영하기"):
 
 else:
     st.warning("👉 위 버튼을 눌러 최신 데이터 반영 후 주문서 생성")
+
 
 
 
