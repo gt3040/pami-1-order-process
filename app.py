@@ -78,6 +78,9 @@ def process_file(sheet_url):
     return temp_file.name, f"filled_sheet_{today}.xlsx"
 
 
+# ✅ 다운로드 버튼 1개 → 클릭 즉시 변환 + 다운로드
+file_path, file_name = process_file(sheet_url)
+with open(file_path, "rb") as f:
 if st.button("⬇️ 최신 데이터 변환 & 다운로드"):
     with st.spinner("🔄 최신 데이터 가져오는 중..."):
         df = load_sheet_csv(sheet_url)
@@ -91,8 +94,5 @@ if st.button("⬇️ 최신 데이터 변환 & 다운로드"):
         file_name=excel_name,
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
-
-
-
-
-
+    
+st.success("다운로드 저장 후 전송하세요!")
