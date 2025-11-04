@@ -62,9 +62,9 @@ def process_file(sheet_url):
     # 다시 합치기
     final_df = pd.concat([header_row, data_rows], ignore_index=True)
 
-    # 반환용 데이터 (A,B 컬럼만)
-    preview_df = data_rows[[0, 1]].copy()
-    preview_df.columns = ["주문번호", "주문 약국명"]
+    # 반환용 데이터 (A,B,F 컬럼만)
+    preview_df = data_rows[[0, 1, 10]].copy()
+    preview_df.columns = ["주문번호", "주문 약국명", "주문수량"]
 
     # 임시 엑셀 저장
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx")
@@ -121,6 +121,7 @@ if st.button("📥 최신 데이터 반영하기"):
 
 else:
     st.warning("👉 위 버튼을 눌러 최신 데이터 반영 후 주문서 생성")
+
 
 
 
