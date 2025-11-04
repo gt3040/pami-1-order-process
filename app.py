@@ -109,14 +109,14 @@ if st.button("📥 최신 데이터 반영하기"):
     # st.subheader("✅ 주문 데이터 미리보기") // 크기조절 불가
     st.markdown("""
     <style>
-    .small-title {
+    .small-header {
         font-size: 28px;
         font-weight: 700;
         text-align: center;
         color: #333;
     }
     </style>
-    <div class="small-title">✅ 주문 데이터 미리보기<br></div>
+    <div class="small-header">✅ 주문 데이터 미리보기<br></div>
 """, unsafe_allow_html=True)
     
     st.dataframe(preview_df, use_container_width=True)
@@ -131,6 +131,7 @@ if st.button("📥 최신 데이터 반영하기"):
 
 else:
     st.warning("👉 위 버튼을 눌러 최신 데이터 반영 후 주문서 생성")
+
 
 
 
