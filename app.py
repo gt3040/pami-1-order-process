@@ -107,12 +107,7 @@ if st.button("📥 최신 데이터 반영하기"):
     st.info(f"📌 최신 데이터 반영 시각: {now}")
 
     st.subheader("✅ 주문 데이터 미리보기")
-
-    st.dataframe(
-        preview_df.reset_index(drop=True).style.set_properties(**{"text-align": "center"}),
-        use_container_width=True
-    )
-
+    st.dataframe(preview_df, use_container_width=True)
 
     with open(file_path, "rb") as f:
         st.download_button(
@@ -124,6 +119,7 @@ if st.button("📥 최신 데이터 반영하기"):
 
 else:
     st.warning("👉 위 버튼을 눌러 최신 데이터 반영 후 주문서 생성")
+
 
 
 
