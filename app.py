@@ -103,7 +103,7 @@ if st.button("📥 최신 데이터 반영하기"):
         file_path, file_name, row_count, preview_df = process_file(sheet_url)
 
     now = datetime.now(ZoneInfo("Asia/Seoul")).strftime("%Y-%m-%d %H:%M:%S")
-    st.success(f"변환 완료! [ {row_count}개의 주문이 처리됨 ]")
+    st.success(f"반영 완료됨 [ {row_count}개의 주문이 처리됨 ]")
     st.info(f"최신 데이터 반영 시각: {now}")
 
     # st.subheader("주문 데이터 미리보기")
@@ -121,6 +121,7 @@ if st.button("📥 최신 데이터 반영하기"):
 
 else:
     st.warning("👉 위 버튼을 눌러 최신 데이터 반영 후 주문서 생성")
+
 
 
 
