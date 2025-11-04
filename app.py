@@ -7,12 +7,15 @@ from openpyxl.utils import get_column_letter
 import tempfile
 import re
 
-st.title("파미-1 주문서")
 
-# ✅ URL은 secrets.toml 또는 Streamlit Cloud Secrets에서 불러옴
+st.title("📦 파미-1 주문서 자동 변환기")
+
+
+# ✅ URL은 Streamlit Cloud Secrets에서 불러옴
 sheet_url = st.secrets["GOOGLE_SHEET_URL"]
 
-# @st.cache_data(show_spinner=True) // 캐싱하지 않음
+
+# ✅ 변환 함수 (캐싱 없음 → 항상 최신 데이터)
 def process_file(sheet_url):
     df = pd.read_csv(sheet_url, header=None)
 
@@ -75,17 +78,25 @@ def process_file(sheet_url):
 
     wb.save(temp_file.name)
 
-    return temp_file.name, f"filled_sheet_{today}.xlsx"
+    return temp_file.name, f"filled_sheet_{today}.xlsx", len(data_rows)
 
 
-# ✅ 다운로드 버튼 1개 → 클릭 즉시 변환 + 다운로드
-file_path, file_name = process_file(sheet_url)
-with open(file_path, "rb") as f:
-    st.download_button(
-        label="📥 주문서 파일 다운로드",
-        data=f,
-        file_name=file_name,
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
+# ✅ 실행 버튼 → 클릭 시 최신 데이터 불러오기
+if st.button("📥 최신 데이터 불러와서 변환하기"):
+    with st.spinner("🔄 최신 데이터 불러오는 중..."):
+        file_path, file_name, row_count = process_file(sheet_url)
 
-st.success("다운로드 저장 후 전송하세요!")
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    st.success(f"✅ 변환 완료!  ({row_count}개의 행 처리됨)")
+    st.info(f"📌 최신 데이터 갱신 시각: {now}")
+
+    with open(file_path, "rb") as f:
+        st.download_button(
+            label="⬇️ 엑셀 파일 다운로드",
+            data=f,
+            file_name=file_name,
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+
+else:
+    st.warning("👉 변환하려면 위 버튼을 먼저 클릭하세요.")
