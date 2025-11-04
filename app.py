@@ -100,7 +100,7 @@ def process_file(sheet_url):
 # ✅ 실행 버튼 → 클릭 시 최신 데이터 불러오기
 col1, col2, col3 = st.columns([1, 8, 1])
 with col2:
-    if st.button("📥 최신 데이터 적용"):
+    if st.button("📥 물류 주문서 생성"):
         with st.spinner("🔄 최신 데이터 불러오는 중..."):
             file_path, file_name, row_count, preview_df = process_file(sheet_url)
         with open(file_path, "rb") as f:
@@ -122,6 +122,7 @@ with col2:
 
     else:
         st.warning("👉 위 버튼을 누르면 최신 데이터를 적용한 물류 주문서를 생성합니다!!")
+
 
 
 
