@@ -103,6 +103,14 @@ with col2:
     if st.button("📥 최신 데이터 적용"):
         with st.spinner("🔄 최신 데이터 불러오는 중..."):
             file_path, file_name, row_count, preview_df = process_file(sheet_url)
+
+        with open(file_path, "rb") as f:
+            st.download_button(
+            label="⬇️ 엑셀 파일 다운로드",
+            data=f,
+            file_name=file_name,
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
             
         now = datetime.now(ZoneInfo("Asia/Seoul")).strftime("%Y-%m-%d %H:%M:%S (KST)")
         st.success(f"완료! {row_count}개의 주문이 처리되었습니다.")
@@ -113,16 +121,9 @@ with col2:
         preview_df.index = range(1, len(preview_df) + 1)
         st.dataframe(preview_df, use_container_width=True)
 
-        with open(file_path, "rb") as f:
-        st.download_button(
-            label="⬇️ 엑셀 파일 다운로드",
-            data=f,
-            file_name=file_name,
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
-       
     else:
         st.warning("👉 위 버튼을 눌러 최신 데이터를 적용하고 주문서를 생성하세요!")
+
 
 
 
