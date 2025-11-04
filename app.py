@@ -88,5 +88,6 @@ with open(file_path, "rb") as f:
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 
-st.success("✅ 버튼을 누르면 Google Sheet → 정리 → 엑셀 다운로드가 자동 실행됩니다.")
+st.success("다운로드 저장 후 전송하세요!")
+
 
