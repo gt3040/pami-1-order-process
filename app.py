@@ -6,14 +6,14 @@ from openpyxl.styles import Border, Side
 from openpyxl.utils import get_column_letter
 import tempfile
 import re
-import io
 
-st.title("📌 파미원 주문서 생성 앱")
+st.title("📌 Google Sheet → 자동 변환 · Excel 다운로드")
 
-# ✅ 고정된 Google Sheet URL
-sheet_url = "https://docs.google.com/spreadsheets/d/1qy0umMpL50qZ_kjSzWbj4iYH-cnm-GBtJ7gYyPAVT_A/export?format=csv"
+# ✅ URL은 secrets.toml 또는 Streamlit Cloud Secrets에서 불러옴
+sheet_url = st.secrets["GOOGLE_SHEET_URL"]
 
-def process_file():
+@st.cache_data(show_spinner=True)
+def process_file(sheet_url):
     df = pd.read_csv(sheet_url, header=None)
 
     # 1행 삭제 후 2행만 헤더로 유지
@@ -23,10 +23,10 @@ def process_file():
     # 첫 번째 열 결측이 아닌 행 삭제
     data_rows = data_rows[data_rows[0].isna()]
 
-    # 결측 채우기 (연월일+2자리 순번)
+    # 결측 채우기 → 연월일 + 2자리 순번
     today = datetime.today().strftime("%Y%m%d")
     count = len(data_rows)
-    fill_values = [f"{today}{num:02d}" for num in range(1, count+1)]
+    fill_values = [f"{today}{num:02d}" for num in range(1, count + 1)]
     data_rows[0] = fill_values
 
     # ✅ 전화번호 정규화
@@ -47,24 +47,21 @@ def process_file():
     # 다시 합치기
     final_df = pd.concat([header_row, data_rows], ignore_index=True)
 
-    # 엑셀 저장 (임시파일)
+    # 임시 엑셀 저장
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx")
     final_df.to_excel(temp_file.name, index=False)
 
-    # openpyxl 스타일 적용
+    # openpyxl 스타일 적용 (테두리 + 열 너비 자동조정)
     wb = load_workbook(temp_file.name)
     ws = wb.active
-
     ws.delete_rows(1)  # 첫줄 삭제
 
-    # 테두리
     thin_border = Border(left=Side(style='thin'), right=Side(style='thin'),
                          top=Side(style='thin'), bottom=Side(style='thin'))
     for row in ws.iter_rows():
         for cell in row:
             cell.border = thin_border
 
-    # 열너비 자동 조정
     def visual_len(s: str) -> int:
         if s is None:
             return 0
@@ -78,19 +75,17 @@ def process_file():
 
     wb.save(temp_file.name)
 
-    return temp_file.name, f"order_sheet_{today}.xlsx"
+    return temp_file.name, f"filled_sheet_{today}.xlsx"
 
 
-# ✅ 단일 버튼 → 클릭 시 즉시 변환 + 다운로드
-file_path, file_name = process_file()
+# ✅ 다운로드 버튼 1개 → 클릭 즉시 변환 + 다운로드
+file_path, file_name = process_file(sheet_url)
 with open(file_path, "rb") as f:
     st.download_button(
-        label="📥 주문서 다운로드",
+        label="📥 변환된 Excel 다운로드",
         data=f,
         file_name=file_name,
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 
-st.info("다운로드 버튼을 눌러 저장 후 전송하세요! ✅")
-
-
+st.success("✅ 버튼을 누르면 Google Sheet → 정리 → 엑셀 다운로드가 자동 실행됩니다.")
