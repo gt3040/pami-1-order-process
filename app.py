@@ -9,7 +9,7 @@ import tempfile
 import re
 
 
-st.title("파미-1 물류 주문서")
+st.markdown("<h3 style='text-align: center;'>파미-1 물류 주문서</h3>", unsafe_allow_html=True)
 
 
 # ✅ URL은 Streamlit Cloud Secrets에서 불러옴
@@ -101,6 +101,7 @@ if st.button("📥 최신 데이터 반영하기"):
 
 else:
     st.warning("👉 위 버튼을 눌러 최신 데이터 반영 후 주문서 생성")
+
 
 
 
