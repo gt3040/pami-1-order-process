@@ -100,10 +100,12 @@ def process_file(sheet_url):
 # ✅ 실행 버튼 → 클릭 시 최신 데이터 불러오기
 col1, col2, col3 = st.columns([1, 8, 1])
 with col2:
+    b1, b2 = st.columns(2)
+    with b1:
     if st.button("📥 최신 데이터 적용"):
         with st.spinner("🔄 최신 데이터 불러오는 중..."):
             file_path, file_name, row_count, preview_df = process_file(sheet_url)
-
+        with b2:
         with open(file_path, "rb") as f:
             st.download_button(
             label="⬇️ 엑셀 파일 다운로드",
@@ -123,6 +125,7 @@ with col2:
 
     else:
         st.warning("👉 위 버튼을 눌러 최신 데이터를 적용하고 주문서를 생성하세요!")
+
 
 
 
