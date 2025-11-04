@@ -62,6 +62,10 @@ def process_file(sheet_url):
     # 다시 합치기
     final_df = pd.concat([header_row, data_rows], ignore_index=True)
 
+    # 반환용 데이터 (A,B 컬럼만)
+    preview_df = data_rows[[0, 1]].copy()
+    preview_df.columns = ["주문번호", "주문자명"]
+
     # 임시 엑셀 저장
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx")
     final_df.to_excel(temp_file.name, index=False)
@@ -90,7 +94,7 @@ def process_file(sheet_url):
 
     wb.save(temp_file.name)
 
-    return temp_file.name, f"filled_sheet_{today}.xlsx", len(data_rows)
+    return temp_file.name, f"order_sheet_{today}.xlsx", len(data_rows)
 
    
 # ✅ 실행 버튼 → 클릭 시 최신 데이터 불러오기
@@ -102,6 +106,9 @@ if st.button("📥 최신 데이터 반영하기"):
     st.success(f"✅ 변환 완료!  ({row_count}개의 주문이 처리됨)")
     st.info(f"📌 최신 데이터 갱신 시각: {now}")
 
+    st.subheader("✅ 변환된 주문 데이터 미리보기 (A/B열)")
+    st.dataframe(preview_df, use_container_width=True)
+
     with open(file_path, "rb") as f:
         st.download_button(
             label="⬇️ 엑셀 파일 다운로드",
@@ -112,6 +119,7 @@ if st.button("📥 최신 데이터 반영하기"):
 
 else:
     st.warning("👉 위 버튼을 눌러 최신 데이터 반영 후 주문서 생성")
+
 
 
 
