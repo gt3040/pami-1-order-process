@@ -105,7 +105,7 @@ with col2:
             file_path, file_name, row_count, preview_df = process_file(sheet_url)
         with open(file_path, "rb") as f:
             st.download_button(
-            label="⬇️ 엑셀 파일 다운로드",
+            label="⬇️ 엑셀 다운로드",
             data=f,
             file_name=file_name,
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -122,6 +122,7 @@ with col2:
 
     else:
         st.warning("👉 위 버튼을 눌러 최신 데이터를 적용하고 주문서를 생성하세요!")
+
 
 
 
