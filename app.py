@@ -8,7 +8,7 @@ import tempfile
 import re
 import io
 
-st.title("📌 Google Sheet → Excel 자동 변환 다운로드")
+st.title("📌 파미원 주문서 생성 앱")
 
 # ✅ 고정된 Google Sheet URL
 sheet_url = "https://docs.google.com/spreadsheets/d/1qy0umMpL50qZ_kjSzWbj4iYH-cnm-GBtJ7gYyPAVT_A/export?format=csv"
@@ -92,4 +92,5 @@ with open(file_path, "rb") as f:
     )
 
 st.info("다운로드 버튼을 눌러 저장 후 전송하세요! ✅")
+
 
