@@ -104,7 +104,7 @@ with col2:
         with st.spinner("🔄 최신 데이터 불러오는 중..."):
             file_path, file_name, row_count, preview_df = process_file(sheet_url)
     
-        now = datetime.now(ZoneInfo("Asia/Seoul")).strftime("%Y-%m-%d %H:%M:%S")
+        now = datetime.now(ZoneInfo("Asia/Seoul")).strftime("%Y-%m-%d %H:%M:%S KST")
         st.success(f"반영 완료됨 [ {row_count}개의 주문이 처리됨 ]")
         st.info(f"최신 데이터 반영 시각: {now}")
     
@@ -123,6 +123,7 @@ with col2:
     
     else:
         st.warning("👉 위 버튼을 눌러 최신 데이터 반영하고 주문서를 생성하세요!")
+
 
 
 
