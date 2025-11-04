@@ -7,7 +7,7 @@ from openpyxl.utils import get_column_letter
 import tempfile
 import re
 
-st.title("📌 Google Sheet → 자동 변환 · Excel 다운로드")
+st.title("파미-1 주문서")
 
 # ✅ URL은 secrets.toml 또는 Streamlit Cloud Secrets에서 불러옴
 sheet_url = st.secrets["GOOGLE_SHEET_URL"]
@@ -82,10 +82,11 @@ def process_file(sheet_url):
 file_path, file_name = process_file(sheet_url)
 with open(file_path, "rb") as f:
     st.download_button(
-        label="📥 변환된 Excel 다운로드",
+        label="📥 주문서 파일 다운로드",
         data=f,
         file_name=file_name,
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 
 st.success("✅ 버튼을 누르면 Google Sheet → 정리 → 엑셀 다운로드가 자동 실행됩니다.")
+
