@@ -112,7 +112,7 @@ with col2:
         )
             
         now = datetime.now(ZoneInfo("Asia/Seoul")).strftime("%Y-%m-%d %H:%M:%S (KST)")
-        st.success(f"완료! {row_count}개의 주문이 처리되었습니다.")
+        st.success(f"완료!! {row_count}개의 주문이 처리되었습니다.")
         st.info(f"적용시간 : {now}")
     
         # st.subheader("주문 데이터 미리보기")
@@ -121,7 +121,8 @@ with col2:
         st.dataframe(preview_df, use_container_width=True)
 
     else:
-        st.warning("👉 위 버튼을 눌러 최신 데이터를 적용하고 주문서를 생성하세요!")
+        st.warning("👉 위 버튼을 누르면 최신 데이터를 적용한 물류 주문서를 생성합니다!!")
+
 
 
 
