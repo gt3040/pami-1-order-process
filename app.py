@@ -78,17 +78,18 @@ def process_file():
 
     wb.save(temp_file.name)
 
-    return temp_file.name, f"filled_sheet_{today}.xlsx"
+    return temp_file.name, f"order_sheet_{today}.xlsx"
 
 
 # ✅ 단일 버튼 → 클릭 시 즉시 변환 + 다운로드
 file_path, file_name = process_file()
 with open(file_path, "rb") as f:
     st.download_button(
-        label="📥 정리된 엑셀파일 다운로드",
+        label="📥 주문서 다운로드",
         data=f,
         file_name=file_name,
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 
-st.info("버튼을 누르면 자동 변환 후 즉시 다운로드 됩니다 ✅")
+st.info("다운로드 버튼을 눌러 저장 후 전송하세요! ✅")
+
